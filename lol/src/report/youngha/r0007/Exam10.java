@@ -1,6 +1,6 @@
 package report.youngha.r0007;
 
-import report.parkkyounghun.r0007.Exam9;
+import report.youngha.r0007.Exam9;
 
 public class Exam10 {
 	// Exam9에 private int a,b, result를 선언해주세요
