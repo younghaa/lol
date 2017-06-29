@@ -4,51 +4,65 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class Exam {
 
+public class Exam {
+	
+	public List<HashMap> doSelect(){
+		return null;
+	}
 	public List<String> getUserIDLists(String name){
+		//String result = "";
 		List<String> userlist = new ArrayList<String>();
-		try{
-			Connection con = DBConn2.getCon();
-			String sql = "select id,pwd,name,age from user";
+		try {
+			Connection con = DBConn2.getCon();			
+			String sql = "select ID,PWD,NAME,age from user";
 			if(!name.equals("")){
-			sql += "where name='"+name+"'";
-						}
-			PreparedStatement prestmt = con.prepareStatement(sql);
-			ResultSet rs=prestmt.executeQuery();
-			while (rs.next()){
-				userlist.add(rs.getString(1)+","+rs.getString(2)+","+rs.getString(3)+","+rs.getInt(4));
+				sql += " WHERE NAME=?";
 			}
+			
+			PreparedStatement prestmt = con.prepareStatement(sql);
+			if(!name.equals("")){
+				prestmt.setString(1, name);
+			}
+			ResultSet rs = prestmt.executeQuery();
+			while (rs.next()) {		
+				userlist.add(rs.getString(1) + "," + rs.getString(2) + "," + rs.getString(3) + "," +rs.getInt(4));
+			}			
 			DBConn2.closeCon();
 			return userlist;
-		}catch(SQLException | ClassNotFoundException e){
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
 	public boolean insertUser(){
-		try{
+		try {
 			Connection con = DBConn2.getCon();
 			Scanner scan = new Scanner(System.in);
-			HashMap<String, String>hm=new HashMap<String,String>();
-			System.out.println("ID를 입력해주세요");
-			hm.put("id",scan.nextLine());
-			System.out.println("PWD를 입력해주세요");
-			hm.put("pwd",scan.nextLine());
+			HashMap<String, String> hm = new HashMap<String, String>();
+			System.out.println("id를 입력해주세요");
+			hm.put("id", scan.nextLine());
+			System.out.println("pwd를 입력해주세요");
+			hm.put("pwd", scan.nextLine());
 			System.out.println("name을 입력해주세요");
 			hm.put("name", scan.nextLine());
 			System.out.println("나이를 입력해주세요");
 			hm.put("age", scan.nextLine());
 			
 			String sql = "insert into user(id, pwd, name, age)"
-					+ "values('" + hm.get("id") + "','" + hm.get("pwd") + "','" + hm.get("name") + "',"
-							+ Integer.parseInt(hm.get("age")) + ")";
+					+ "values(?,?,?,?)";
 			PreparedStatement prestmt = con.prepareStatement(sql);
+			prestmt.setString(1, hm.get("id"));
+			prestmt.setString(2, hm.get("pwd"));
+			prestmt.setString(3, hm.get("name"));
+			prestmt.setString(4, hm.get("age"));
 			int result = prestmt.executeUpdate();
 			DBConn2.closeCon();
 			if(result==1){
@@ -85,7 +99,7 @@ public class Exam {
 //		if(isDel){
 //			System.out.println("유저테이블에 잘 삭제가 됬네요!!");
 //		}
-		List<String> userList = e.getUserIDLists("");
+		List<String> userList = e.getUserIDLists("녹길동");
 		for(int i=0;i<userList.size();i++){
 			System.out.println(userList.get(i));
 		}
