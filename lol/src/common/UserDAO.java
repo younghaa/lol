@@ -16,13 +16,13 @@ public class UserDAO {
 		try {
 			Connection con = DBConn2.getCon();
 			PreparedStatement prestmt = con.prepareStatement(sql);
-			// "select * from user";
+			//"select *  from user";
 			ResultSet rs = prestmt.executeQuery();
 			ResultSetMetaData rsmd = rs.getMetaData();
 			while (rs.next()) {
 				HashMap hm = new HashMap();
 				int colCount = rsmd.getColumnCount();
-				for (int i = 1; i <= colCount; i++) {
+				for(int i=1;i<=colCount;i++){
 					String colName = rsmd.getColumnName(i);
 					hm.put(colName, rs.getString(colName));
 				}
@@ -35,7 +35,6 @@ public class UserDAO {
 		}
 		return null;
 	}
-<<<<<<< HEAD
 	
 
 	public boolean doInsert(String sql, HashMap<String, String> hm) {
@@ -56,27 +55,6 @@ public class UserDAO {
 			PreparedStatement prestmt = con.prepareStatement(sql);
 			for(int i=0;i<keys.length;i++){
 				prestmt.setString(i+1, hm.get(keys[i]));
-=======
-
-	public boolean doInsert(String sql, HashMap<String, String> hm) {
-		try {
-			Connection con = DBConn2.getCon();
-			String[] keys = hm.keySet().toArray(new String[hm.size()]);
-			for (int i = 0; i <= keys.length; i++) {
-				sql += keys[i] + ",";
-			}
-			sql = sql.substring(0, sql.length() - 1);
-			sql += ") values(";
-
-			for (int i = 0; i < keys.length; i++) {
-				sql += "?,";
-			}
-			sql = sql.substring(0, sql.length() - 1);
-			sql += ")";
-			PreparedStatement prestmt = con.prepareStatement(sql);
-			for (int i = 0; i < keys.length; i++) {
-				prestmt.setString(i + 1, hm.get(keys[i]));
->>>>>>> refs/remotes/origin/master
 			}
 			int result = prestmt.executeUpdate();
 			DBConn2.closeCon();
@@ -88,14 +66,8 @@ public class UserDAO {
 		}
 		return false;
 	}
-<<<<<<< HEAD
 	public static void main(String[] args){
-=======
-
-	public static void main(String[] args) {
->>>>>>> refs/remotes/origin/master
 		UserDAO ud = new UserDAO();
-<<<<<<< HEAD
 //		String sql = "select * from user order by age desc";
 //		List<HashMap> userList = ud.doSelect(sql);
 //		System.out.println(" = 유저 리스트 = ");
@@ -103,33 +75,18 @@ public class UserDAO {
 //			System.out.println(hm);
 //		}
 		
-=======
-		// String sql = "select * from user_info order by num";
-		// List<HashMap> userList = ud.doSelect(sql);
-		// System.out.println(" = 유저 리스트 = ");
-		// for(HashMap hm : userList){
-		// System.out.println(hm);
-		// }
-
->>>>>>> refs/remotes/origin/master
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("id", "green");
 		hm.put("pwd", "green");
 		hm.put("name", "녹길동");
 		hm.put("age", "21");
 		hm.put("class_num", "3");
-<<<<<<< HEAD
 		
 
 		String sql = "insert into user_info(";
 		//ud.doInsert(sql, hm);
-=======
-
-		String sql = "insert into user_info";
->>>>>>> refs/remotes/origin/master
 		System.out.println(sql);
 		
-<<<<<<< HEAD
 		sql = "insert into class_info(";
 		hm = new HashMap<String, String>();
 		hm.put("class_name", "미술반");
@@ -138,12 +95,6 @@ public class UserDAO {
 //			String key = (String) it.next();
 //			System.out.println(key);
 //		}
-=======
-		sql = "insert into user_info";
-		hm = new HashMap<String, String>();
-		hm.put("class_name", "미술반");
-		ud.doInsert(sql, hm);
-
->>>>>>> refs/remotes/origin/master
 	}
 }
+
