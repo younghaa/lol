@@ -9,9 +9,9 @@
 		var num1 = parseInt(document.getElementById("num1").value);
 		var num2 = parseInt(document.getElementById("num2").value);
 		var tableStr = "<table border='1'>";		
-	for (var i = 0; i < num1; i++) {
+	for (var i = 1; i <= num1; i++) {
 		tableStr += "<tr>";
-		for (var j = 0; j < num2; j++) {
+		for (var j = 1; j <= num2; j++) {
 			tableStr += "<td>" + i+"_"+ j + "</td>";
 		}
 		tableStr += "</tr>";
