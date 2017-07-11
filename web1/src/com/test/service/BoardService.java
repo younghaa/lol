@@ -4,29 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.test.common.DBConn;
 
-public class UserService {
 
-	public boolean insertUser(HashMap<String, String> hm){
+public class BoardService {
+
+	public boolean insertBoard(HashMap<String, String> hm){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
 			con = DBConn.getCon();
-			String sql = "insert into user_info(id,pwd,name,class_num, age)";
-			sql += " values(?,?,?,?,?)";
+			String sql = "insert into board(title,content,writer,reg_date)";
+			sql += " values(?,?,?,?)";
 			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("id"));
-			ps.setString(2, hm.get("pwd"));
-			ps.setString(3, hm.get("name"));
-			ps.setString(4, hm.get("class_num"));
-			ps.setString(5, hm.get("age"));
+			ps.setString(1, hm.get("title"));
+			ps.setString(2, hm.get("content"));
+			ps.setString(3, hm.get("writer"));
+			Date d = new Date(4);
+			SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			int result = ps.executeUpdate();
 			if(result==1){
 				con.commit();
@@ -47,27 +51,27 @@ public class UserService {
 		return false;
 	}
 	
-	public List<Map> selectUser(HashMap<String, String> hm){
+	public List<Map> selectBoard(HashMap<String, String> hm){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select user_num, user_id, user_pwd, user_name, class_num from user_info";
-			if(hm.get("name")!=null){
-				sql += " where user_name like ?";
+			String sql = "select title, content, writer, reg_date from board";
+			if(hm.get("title")!=null){
+				sql += " where title like ?";
 			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
-			if(hm.get("name")!=null){
-				ps.setString(1, hm.get("name"));
+			if(hm.get("title")!=null){
+				ps.setString(1, hm.get("title"));
 			}
 			ResultSet rs = ps.executeQuery();
-			List userList = new ArrayList();
+			List boardList = new ArrayList();
 			while(rs.next()){
 				HashMap hm1 = new HashMap();
-				hm1.put("user_name", rs.getString("user_name"));
-				userList.add(hm1);
+				hm1.put("writer", rs.getString("writer"));
+				boardList.add(hm1);
 			}
-			return userList;
+			return boardList;
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

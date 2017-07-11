@@ -16,25 +16,23 @@ import com.test.service.UserService;
 public class UserServlet extends HttpServlet{
 	
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resq) throws IOException, ServletException{	
 		req.setCharacterEncoding("UTF-8");
+
+		String name1 = req.getParameter("name");
+		String pwd1 = req.getParameter("pass");
+		System.out.println("input html에서 너님이 던진값 =>" + name1 + pwd1);
+
 		//html화면에서 던진 값을 각각 String 변수로 받기 시작
-		
-		String name1=req.getParameter("name");
-		String pwd1=req.getParameter("pass");
-		System.out.println("input html에서 그대가 던진 값=>"+name1+pwd1);
-		
 		String command = req.getParameter("command");
-				if(command==null){
+		if(command==null){
 			return;
 		}
-		
-		UserService us = new UserService();
-
 		//UserService에 있는 insertUser(HashMap hm)이라는 함수를 호출하기 위해
 		//UserService로 us 레퍼런스 변수를 생성
+		UserService us = new UserService();
 		if(command.equals("SIGNIN")){
 			String id = req.getParameter("id");
 			String pwd = req.getParameter("pwd");
@@ -65,14 +63,14 @@ public class UserServlet extends HttpServlet{
 				doProcess(resq, "값 똑바로 입력 안하냐잉~");
 			}
 		}else if(command.equals("DELETE")){
-			String user_num = req.getParameter("user_num");
-			System.out.println("삭제할 번호 : " + user_num);
+			String num = req.getParameter("num");
+			System.out.println("삭제할 번호 : " + num);
 		}else if(command.equals("UPDATE")){
-			String user_num = req.getParameter("user_num");
-			System.out.println("업데이트할 번호 : " + user_num);
+			String num = req.getParameter("num");
+			System.out.println("업데이트할 번호 : " + num);
 
 			String name = req.getParameter("name");
-			String class_num = req.getParameter("class_num");
+			String class_num = req.getParameter("num");
 			String age = req.getParameter("age");
 			
 			//해쉬맵 생성
