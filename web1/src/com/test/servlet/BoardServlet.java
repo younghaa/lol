@@ -49,9 +49,11 @@ public class BoardServlet extends HttpServlet{
 				}else{
 					doProcess(resq,"올바른값을넣그라");
 				}
-			}else if(command.equals("delete")){
+			}else if(command.equals("DELETE")){
 				String num =req.getParameter("num");
-				System.out.println("삭제할 글번호 : "+num);
+				HashMap hm = new HashMap();
+				hm.put("num", num);
+				
 				}else if(command.equals("UPDATE")){
 					String num=req.getParameter("num");
 					System.out.println("업뎃할 글번호 : "+num);

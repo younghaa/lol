@@ -18,7 +18,7 @@ public class UserService {
 		PreparedStatement ps = null;
 		try {
 			con = DBConn.getCon();
-			String sql = "insert into user_info(id,pwd,name,class_num, age)";
+			String sql = "insert into user_info(user_id, user_pwd, user_name, class_num, age)";
 			sql += " values(?,?,?,?,?)";
 			
 			ps = con.prepareStatement(sql);
@@ -46,14 +46,44 @@ public class UserService {
 		}
 		return false;
 	}
+
+	public boolean deleteUser(HashMap<String, String> hm){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = DBConn.getCon();
+			String sql = "delete from user_info ";
+			sql += " where num=?";
+			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, hm.get("num"));
+			int result = ps.executeUpdate();
+			if(result==1){
+				con.commit();
+				return true;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DBConn.closeCon();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 	
 	public List<Map> selectUser(HashMap<String, String> hm){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select user_num, user_id, user_pwd, user_name, class_num from user_info";
+			String sql = "select num, id, pwd, name, class_num from user_info";
 			if(hm.get("name")!=null){
-				sql += " where user_name like ?";
+				sql += " where name like ?";
 			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
@@ -64,7 +94,11 @@ public class UserService {
 			List userList = new ArrayList();
 			while(rs.next()){
 				HashMap hm1 = new HashMap();
-				hm1.put("user_name", rs.getString("user_name"));
+				hm1.put("num", rs.getString("num"));
+				hm1.put("id", rs.getString("id"));
+				hm1.put("pwd", rs.getString("pwd"));
+				hm1.put("name", rs.getString("name"));
+				hm1.put("class_num", rs.getString("class_num"));
 				userList.add(hm1);
 			}
 			return userList;
