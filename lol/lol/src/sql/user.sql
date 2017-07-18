@@ -173,7 +173,7 @@ BEGIN
 	  BEGIN
 		ROLLBACK;        
 		SET RESULT = -1;  
-	END;
+	END;	
 	/* 트랜젝션 시작 */
 	START TRANSACTION;
 	WHILE (i <= loop_cnt) DO
