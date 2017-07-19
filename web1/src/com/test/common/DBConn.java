@@ -11,7 +11,7 @@ public class DBConn {
 	public static Connection getCon() throws ClassNotFoundException, SQLException {
 		if (con == null) {
 			Class.forName("org.mariadb.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/iot_test", "root", "egyd3195");
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/iot", "root", "egyd3195");
 			con.setAutoCommit(false);
 		}
 		return con;

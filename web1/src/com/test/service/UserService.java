@@ -18,15 +18,19 @@ public class UserService {
 		PreparedStatement ps = null;
 		try {
 			con = DBConn.getCon();
-			String sql = "insert into user_info(user_id, user_pwd, user_name, class_num, age)";
-			sql += " values(?,?,?,?,?)";
+			String sql = "insert into user_info(usernum, userid, username, age, address,hp1,hp2,hp3,userpwd)";
+			sql += " values(?,?,?,?,?,?,?,?,?)";
 			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("id"));
-			ps.setString(2, hm.get("pwd"));
-			ps.setString(3, hm.get("name"));
-			ps.setString(4, hm.get("class_num"));
-			ps.setString(5, hm.get("age"));
+			ps.setString(1, hm.get("usernum"));
+			ps.setString(2, hm.get("userid"));
+			ps.setString(3, hm.get("username"));
+			ps.setString(4, hm.get("age"));
+			ps.setString(5, hm.get("address"));
+			ps.setString(6, hm.get("hp1"));
+			ps.setString(7, hm.get("hp2"));
+			ps.setString(8, hm.get("hp3"));
+			ps.setString(9, hm.get("userpwd"));
 			int result = ps.executeUpdate();
 			if(result==1){
 				con.commit();
@@ -53,10 +57,10 @@ public class UserService {
 		try {
 			con = DBConn.getCon();
 			String sql = "delete from user_info ";
-			sql += " where num=?";
+			sql += " where usernum=?";
 			
 			ps = con.prepareStatement(sql);
-			ps.setString(1, hm.get("num"));
+			ps.setString(1, hm.get("usernum"));
 			int result = ps.executeUpdate();
 			if(result==1){
 				con.commit();
@@ -76,14 +80,40 @@ public class UserService {
 		}
 		return false;
 	}
+	public String checkPwd(String pwd1, String pwd2){
+		if(pwd1.equals(pwd2)){
+			return "로긘했다긔";
+		}
+		return "븨번틀렸다긔";
+	}
+	public String loginUser(HashMap<String, String> hm){
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = DBConn.getCon();
+			String sql = "select userpwd from user_info where userid=?";			
+			ps = con.prepareStatement(sql);
+			ps.setString(1, hm.get("userid"));
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				String userpwd = rs.getString("userpwd");
+				return checkPwd(userpwd, hm.get("userpwd"));		
+			}
+			
+		} catch (Exception e) {
+			
+		}
+		return "긔런 아이듸 없다긔";
+}
+
 	
 	public List<Map> selectUser(HashMap<String, String> hm){
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
-			String sql = "select num, id, pwd, name, class_num from user_info";
+			String sql = "select user_num, user_id, user_pwd, user_name, class_num from user_info";
 			if(hm.get("name")!=null){
-				sql += " where name like ?";
+				sql += " where user_name like ?";
 			}
 			con = DBConn.getCon();
 			ps = con.prepareStatement(sql);
@@ -94,10 +124,10 @@ public class UserService {
 			List userList = new ArrayList();
 			while(rs.next()){
 				HashMap hm1 = new HashMap();
-				hm1.put("num", rs.getString("num"));
-				hm1.put("id", rs.getString("id"));
-				hm1.put("pwd", rs.getString("pwd"));
-				hm1.put("name", rs.getString("name"));
+				hm1.put("user_num", rs.getString("user_num"));
+				hm1.put("user_id", rs.getString("user_id"));
+				hm1.put("user_pwd", rs.getString("user_pwd"));
+				hm1.put("user_name", rs.getString("user_name"));
 				hm1.put("class_num", rs.getString("class_num"));
 				userList.add(hm1);
 			}
