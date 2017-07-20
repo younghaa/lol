@@ -15,9 +15,9 @@ function getHttpXmlObj(){
 	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
 }
 function doLogin(){
-	var idStr = "userid,userpwd";
-	var lengthStr = "30,100";
-	var typeStr = "s,s"
+	var idStr = "userid,userpwd,command";
+	var lengthStr = "30,100,100";
+	var typeStr = "s,s,s"
 	var params="?";
 	var ids = idStr.split(",");
 	var lengths = lengthStr.split(",");
@@ -58,25 +58,9 @@ function doLogin(){
 }
 </script>
 <body>
-<div width="100%" id="bd_div">
-<table border="1" cellspacing="0" cellpadding="0" width="400" align="center">
-<tr>
-	<td colspan="2"><p align="center"> = 로그인 = </p></td>
-</tr>
-<tr>
-	<td align="center">아이디</td>
-	<td><input type="text" name="userid" id="userid"  value=""/></td>
-</tr>
-<tr>
-	<td align="center">비밀번호</td>
-	<td><input type="password" name="userpwd" id="userpwd" maxlength="100"value=""/></td>
-</tr>
-<tr>
-	<td colspan="2" align="center"><input type="button" value="로그인" onclick="doLogin()"/></td>
-</tr> 
-</table>
-</div>
-<input type="hidden" name="command" id="command" value="SIGNIN"/><br/>
-
+id : <input type="text" name="userid" id="userid"/><br/>
+pwd : <input type="text" name="userpwd" id="userpwd"/><br/>
+<input type="button" value="로그인" onclick="doLogin()"/>
+<input type="hidden" name="command" id="command" value="LOGIN"/><br/>
 </body>
 </html>
