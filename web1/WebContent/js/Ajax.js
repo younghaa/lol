@@ -1,32 +1,36 @@
 /**
  * 
  */
-var str = "name,id,pwd";
-var strs = str.split(",");
-var param = "";
-for (var i = 0; i < strs.length; i++) {
-	var value = document.getElementById(strs[i]).value;
-	param += "&" + strs[i] + "=" + value;
-}
-var au = new AjaxUtil("/login.action", "name,id,pwd");
-var AjaxUtil = function a(url, arrParams, method, aSync) {
-	this.fAction = url;
-	this.fMethod = method ? method : "get";
-	var params = "?action = LOGIN&id=" + encodeURIComponent(userid);
-	this.fASync = aSync ? aSync : true;
-	xmlHttpObj.onreadystatechange = function() {
-		if (xmlHtmlObj.readyState == 4 && xmlHttpObj.status == 200) {
-			var result = decodeURIComponent(xmlHttpOnj.responseText);
-			if (result == "success") {
-				location.href = "../user/welcome/jsp"
-			} else {
-				alert(result);
-			}
-		}
+
+var AjaxUtil = function(params){
+	this.params = params;
+	
+	getHttpXmlObj = function(){
+		if(window.XMLHttpRequest){
+	  		return new XMLHttpRequest();
+	 	}else if(window.ActiveXObject){
+	  		return new ActiveXObject("Microsoft.XMLHTTP");
+	 	}
+		alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
 	}
-	xmlHttpObj.open(method, url + params, sync);
-	if (method == "post") {
-		xmlHttpObj.setrequestHeader("Content-type",	"application/x-www.-form-urlencoded");
+	this.xhr = getHttpXmlObj();
+	var method = "get";
+	var url = "test.user";
+	var aSync = true;
+	this.xhr.onreadystatechange=function(){
+   		if (this.readyState==4){
+   			if(this.status==200){
+	   			var result = decodeURIComponent(this.responseText);
+	   			alert(result);
+   			}
+   		}
 	}
-	xmlHttpObj.send(params);
+	this.changeCallBack = function(func){
+		this.xhr.onreadystatechange = func;
+	}
+   	this.xhr.open(method, url+params, aSync);
+   	this.send = function(){
+   		this.xhr.send.arguments = this;
+   	   	this.xhr.send();
+   	}
 }

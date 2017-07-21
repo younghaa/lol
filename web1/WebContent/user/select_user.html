@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="/js/Ajax.js"></script>
 <script>
-function getHttpXmlObj(){
-	if(window.XMLHttpRequest){
-  		return new XMLHttpRequest();
- 	}else if(window.ActiveXObject){
-  		return new ActiveXObject("Microsoft.XMLHTTP");
- 	}
-	alert("해당 브라우져가  Ajax를 지원하지 않습니다.");
+function doUpdate(userNum){
+	var userName - document.getElementById("r"+userNum+1).value;
+	var userId=document.getElementById("r"+userNum+2).value;
+	var age=document.getElementById("r"+userNum + 3).value;
+	var command = "UPDATE"
+	params = "?usernum="+userNum + "&username=" + userName +"&userid="+userId + "&age="+age+"&command=" +command;
+	var au = new AjaxUtil(params);
+	au.send();
 }
 
 function doDelete(userNum){
