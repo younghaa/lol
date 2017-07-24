@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+var AjaxUtil = function(params){
+	this.params=params;
+}
+function click1 (num){
+	var au = new AjaxUtil(num);
+	alert(au.params);
+	au=new AjaxUtil(3);
+	alert(au.params);
+	}
+</script>
+<input type ="button" value="1"onclick="click1(1)"/></br>
+<input type ="button" value="2"onclick="click2(3)"/></br>
+</body>
+</html>
