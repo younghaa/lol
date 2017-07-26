@@ -46,7 +46,7 @@ if(id!=null && pwd!=null){
 				session.setAttribute("hp2",hp2);
 				session.setAttribute("hp3",hp3);
 			}else{
-				result =  "비밀번호 틀렸다";
+				result =  "비밀번호 틀렸어 임마!";
 			}
 		}
 	}catch(Exception e){
@@ -54,16 +54,18 @@ if(id!=null && pwd!=null){
 	}finally{
 		if(ps!=null){
 			ps.close();
-			ps=null;
+			ps = null;
 		}
 		DBConn.closeCon();
 	}
+	
 	if(result.equals("")){
-		result =  "그런 아이디 없다";
+		result =  "그런 아이디 없다잖아!!";
 	}
 	out.println(result);
 }else{
 	// 세션 초기화
+	result = "로그아웃 되셨습니다.";
 	session.invalidate();
 }
 %>

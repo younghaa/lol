@@ -6,26 +6,26 @@
 </head>
 <script src="/js/Ajax.js"></script>
 <script>
-function doUpdate(biNum){
-	var biTitle = document.getElementById("r"+ biNum + 1).value;
-	var biContent = document.getElementById("r"+ biNum + 2).value;
-	var age = document.getElementById("r"+ biNum + 3).value;
+function doUpdate(userNum){
+	var userName = document.getElementById("r"+ userNum + 1).value;
+	var userId = document.getElementById("r"+ userNum + 2).value;
+	var age = document.getElementById("r"+ userNum + 3).value;
 	var command = "UPDATE"
-	params = "?binum=" + biNum + "&bititle=" + biTitle + "&bicontent=" + biContent + "&bipwd=" + biPwd + "&creusr=" + creUsr;
+	params = "?usernum=" + userNum + "&username=" + userName + "&userid=" + userId + "&age=" + age + "&command=" + command;
 	var au = new AjaxUtil(params);
 	au.send();
 }
-function doDelete(biNum){
-	var isDelete = confirm(biNum + "을 삭제할라고요~?");
+function doDelete(userNum){
+	var isDelete = confirm(userNum + "을 삭제할라고요~?");
 	if(isDelete){
 		var command = "DELETE";
-		var params = "?binum=" + biNum + "&command=" + command;
+		var params = "?usernum=" + userNum + "&command=" + command;
 	}
 	var au = new AjaxUtil(params);
 	au.send();
 }
 function doSelect(){
-	var idStr = "bititle,command";
+	var idStr = "username,command";
 	var lengthStr = "30,100";
 	var typeStr = "s,s"
 	var params="?";
@@ -78,7 +78,7 @@ function doSelect(){
 	   						tableStr += "<td>" + columns[j] + "</td>";
 	   					}else{
 	   						if(tdEnables[j]=="en"){
-	   							tableStr += "<td><input type='text' value='" + columns[j] + "' id='r" + biNum + j + "'/></td>";
+	   							tableStr += "<td><input type='text' value='" + columns[j] + "' id='r" + userNum + j + "'/></td>";
 	   						}else{
 		   						tableStr += "<td>" + columns[j] + "</td>";
 	   						}
@@ -107,7 +107,7 @@ function doSelect(){
 }
 </script>
 <body>
-이름 : <input type="text" name="biname" id="biname"/> <input type="button" value="검색" onclick="doSelect()"/>
+이름 : <input type="text" name="username" id="username"/> <input type="button" value="검색" onclick="doSelect()"/>
 <input type="hidden" name="command"  id="command"value="SELECT"/>
 <div id="bd_div"></div>
 <script>

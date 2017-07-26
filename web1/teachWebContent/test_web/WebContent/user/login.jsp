@@ -8,11 +8,17 @@
 var setObj;
 var loopCnt = 0;
 function doLogout(){
-	location.href=rootPath + "/user/login_ok.jsp";
+	location.href="<%=rootPath%>/user/login_ok.jsp";
 }
 </script>
 <body>
 <%
+String someParam = request.getParameter("some");
+out.println("some 파라메터값 = " + someParam+"<br/>");
+session.setAttribute("some","세션값");
+String someSession = (String)session.getAttribute("some");
+out.println("some 세션값 = " + someSession);
+
 if(login){
 	out.println("현재시간 : " + toDateStr);
 	out.println("<br/>");
