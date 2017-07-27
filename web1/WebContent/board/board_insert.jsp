@@ -5,7 +5,7 @@
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.test.dto.UserInfo"%>
 
-<%
+<%-- <%
 String bititle = request.getParameter("bititle");//잊어버리지마
 String bicontent = request.getParameter("bicontent");//겟파라미터잊어버리지마
 String bipwd = request.getParameter("bipwd");//지금보다 더 병신이 되지마
@@ -39,20 +39,14 @@ try {
 %>
 <script>
 
-</script>
+</script> --%>
 <body>
-	<form>
-<%
-out.println("제목 : 	<input type='text' name='bititle' id='bititle'/></br>");// 이제 외워
-out.println("내용 : <textarea name='bicontent' id='bicontent'/></textarea></br>");
-out.println("비밀번호 : <input type='text' name='bipwd' id='bipwd'/></br>");
-out.println("글쓴이 : "+ userId);
-out.println("</br>");
-out.println("작성일자 : " + toDateStr);
-out.println("</br>");
-%>
-		<input type="submit" value="저장하기" /> 
-		<input type="button" value="메인가기" onclick="doMovePage('main')" />
-	</form>
+<form method="get" action="<%=rootPath %>/board/board_insert_ok.jsp">
+제목 : <input type="text" name="bititle" id="bititle"/></br>
+내용 : <textarea name="bicontent" id="bicontent"></textarea><br/>
+작성자 : <input type="text" name="creusr" id="creusr" value="<%=userId%>"/><br/>
+비밀번호 : <input type="password" name="bipwd" id="bipwd"/><br/>
+<input type="submit" value="글쓰기"/>
+</form>
 </body>
 </html>

@@ -6,13 +6,13 @@
 <%@ page import="com.test.dto.UserInfo"%>
 
 <body>
+<script>
+function goBoard(biNum,param2){
+	location.href = "<%=rootPath%>/board/board_view.jsp?binum=" + biNum;	
+}
+</script>
+
 	<%
-String someParam = request.getParameter("some");
-String someSession = (String)session.getAttribute("some");
-
-out.println("some 파라메터 값 = " + someParam+ "<br/>");
-out.println("some 세션값 = " + someSession+"<br/>");
-
 	Connection con = null;
 	PreparedStatement ps = null;
 	try{
@@ -24,7 +24,6 @@ out.println("some 세션값 = " + someSession+"<br/>");
 		tableStr += "<tr>";
 		tableStr += "<td>번호</td>";
 		tableStr += "<td>제목</td>";
-		tableStr += "<td>내용</td>";
 		tableStr += "<td>비밀번호</td>";
 		tableStr += "<td>작성자</td>";
 		tableStr += "<td>작성일자</td>";
@@ -35,8 +34,7 @@ out.println("some 세션값 = " + someSession+"<br/>");
 			existData = true;
 			tableStr +="<tr>";
 			tableStr +="<td>"+rs.getInt("binum")+"</td>";
-			tableStr +="<td>"+rs.getString("bititle")+"</td>";
-			tableStr +="<td>"+rs.getString("bicontent")+"</td>";
+			tableStr +="<td><a href='#javascript' onclick='goBoard(" +rs.getInt("binum")+ ")'>" + rs.getString("bititle")+ "</a></td>";;
 			tableStr +="<td>"+rs.getString("bipwd")+"</td>";
 			tableStr +="<td>"+rs.getString("creusr")+"</td>";
 			tableStr +="<td>"+rs.getString("credat")+"</td>";
