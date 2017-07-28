@@ -50,13 +50,39 @@
 	}
 %>
 
-번호 : <%=binum%><br/>
-제목 : <%=bititle%><br/>
-내용 : <%=bicontent%><br/>
-글쓴이 : <%=creusr%><br/>
-생성일자 :  <%=credat%><br/>
-비밀번호 : <input type="password" name="bipwd" id="bipwd" /><br/>
+<jsp:include page="/common/top.jsp" flush="false"></jsp:include>
+<div class="container">
+<div class="starter-template">
+<table border="1" class='table table-bordered table-hover'>
+<tr>
+<td>번호 : </td>
+<td><%=binum%></td>
+</tr>
+<tr>
+<td>제목 : </td>
+<td><%=bititle%></td>
+</tr>
+<tr>
+<td>내용 : </td>
+<td><%=bicontent%></td>
+</tr>
+<tr>
+<td>글쓴이 : </td>
+<td><%=creusr%></td>
+</tr>
+<tr>
+<td>생성일자 : </td>
+<td><%=credat%></td>
+</tr>
+<tr>
+<td>비밀번호 : </td>
+<td><input type="password" name="bipwd" id="bipwd" /></td>
+</tr>
+</table>
 <input type="button" value="수정" onclick="modifyBoard()"/> <input type="button" value="삭제"onclick="deleteBoard()"/>
+<input type="button" value="목록"onclick="selectBoard()"/>
+</div>
+</div>
 <script>
 function modifyBoard(){
 	var bipwd = document.getElementById("bipwd").value;
@@ -65,6 +91,9 @@ function modifyBoard(){
 function deleteBoard(){
 	var bipwd = document.getElementById("bipwd").value;
 	location.href="<%=rootPath%>/board/board_delete.jsp?binum=<%=binum%>&bipwd=" + bipwd; 
+}
+function selectBoard(){
+	location.href="<%=rootPath%>/board/board_select.jsp"; 
 }
 </script>
 </body>
