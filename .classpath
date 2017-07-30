@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="lol/lol/src"/>
+	<classpathentry kind="src" path="web1/src"/>
+	<classpathentry kind="src" path="web1/teachWebContent/test_web/src"/>
+	<classpathentry kind="output" path="web1/teachWebContent/test_web/build/classes"/>
+</classpath>

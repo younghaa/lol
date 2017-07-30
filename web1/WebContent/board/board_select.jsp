@@ -67,7 +67,7 @@ function doSearch(){
 		}
 		if(!existData){
 			tableStr += "<tr>";
-			tableStr += "<td colspan='6' align='center'>데이터가 아무것도 없다!!!</td>";
+			tableStr += "<td colspan='6' align='center'>작성된 글이 없습니다.</td>";
 			tableStr += "</tr>";
 		}else{
 			tableStr += "<tr>";

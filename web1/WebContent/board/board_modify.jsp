@@ -58,13 +58,33 @@
 			DBConn.closeCon();
 		}
 	%>
-<body><form method="get" action="<%=rootPath%>/board/board_modify_ok.jsp">
-		제목 : <input type="text" name="bititle" id="bititle"value="<%=bititle%>" /><br /> 
-			내용 : <textarea name="bicontent" id="bicontent" /><%=bicontent %></textarea><br/>
- 글쓴이 : <input type="text" name="creusr" id="creusr" value="<%=creusr %>"/><br/> 
- 비밀번호 : <input type="password"name="bipwd" id="bipwd" value="<%=bipwd %>" /><br/> 
- <input type="hidden" value="<%=binum%>" name="binum" /> 
- <input type="submit" value="수정하기" />
-	</form>
+ <body>
+ <jsp:include page="/common/top.jsp" flush="false"></jsp:include>
+<div class="container">
+<div class="starter-template">
+
+<table border="1" class='table table-bordered table-hover'>
+
+ <form method="get" action="<%=rootPath%>/board/board_modify_ok.jsp">
+ <table class='table table-bordered table-hover'>
+		<tr>
+		<td>제목 : </td>
+		<td><input type="text" name="bititle" id="bititle"value="<%=bititle%>" /></td>
+		</tr>
+		<tr>
+		<td>내용 : </td>
+		<td><textarea name="bicontent" id="bicontent" /><%=bicontent%></textarea></td>
+		<tr>
+		<td>글쓴이 : </td>
+		<td><input type="text" name="creusr" id="creusr" value="<%=creusr%>"/></td>
+		</tr>
+		<tr>
+		<td>비밀번호 : </td>
+		<td><input type="password"name="bipwd" id="bipwd" value="<%=bipwd%>" /></td>
+ <input type="hidden" value="<%=binum%>" name="binum" />
+ </tr>
+	</table>
+		<input type="submit" value="수정하기" />
+		</form>
 </body>
 </html>
