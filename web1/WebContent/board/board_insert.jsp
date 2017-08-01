@@ -6,7 +6,7 @@
 <%@ page import="com.test.dto.UserInfo"%>
 
 <body>
-<jsp:include page="/common/top.jsp" flush="false"></jsp:include>
+</jsp:include>
 <div class="container">
 <div class="starter-template">
 
