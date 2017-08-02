@@ -6,7 +6,6 @@
 <%@ page import="com.test.dto.UserInfo"%>
 
 <body>
-</jsp:include>
 <div class="container">
 <div class="starter-template">
 

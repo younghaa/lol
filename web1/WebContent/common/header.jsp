@@ -67,6 +67,8 @@ function doMovePage(pageId){
 		url += "/main.jsp";
 	}else if(pageId=="insertBoard"){
 		url += "/board/board_insert.jsp";
+	}else if(pageId=="cal"){
+		url += "/test/cal_select.jsp";
 	}
 	location.href=url;
 }
@@ -94,6 +96,7 @@ function doMovePage(pageId){
         <li role="presentation"><a href="/board/board_select.jsp" >게시판</a></li>
         <li role="presentation"><a href="/user/user_info.jsp">유저정보</a></li>
         <li role="presentation"><a href="/role/role_select.jsp">권한정보</a></li>
+        <li role="presentation"><a href="/test/cal.jsp">계산기</a></li>
         <li><a href="/user/logout_ok.jsp"><%=loginStr%></a></li>
            </ul>
 
