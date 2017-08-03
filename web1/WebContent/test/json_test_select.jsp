@@ -7,32 +7,20 @@
 <%
 	 Gson g = new Gson();
 	 HashMap<String,String> hm = g.fromJson(request.getReader(), HashMap.class);
-	String op = "";
-	if(hm!=null){
-		op = hm.get("op");
-	}
+
 	Connection con = null;
 	PreparedStatement ps = null;
 	ArrayList<Map<String, String>> calList = new ArrayList<Map<String, String>>();
 	try{
 		con = DBConn.getCon();
-		String sql = "select calnum, num1, num2, op, result from cal where 1=1";
-
-		if(op!=null && !op.equals("")){
-			sql += " and op = ?";
-		}
+		String sql = "select num, jttext from json_test where 1=1";
 		ps = con.prepareStatement(sql);
-		if(op!=null && !op.equals("")){
-			ps.setString(1,op);
-		}
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			Map<String, String>rhm = new HashMap<String, String>();
-			rhm.put("calnum", rs.getString("calnum"));
-			rhm.put("num1", rs.getString("num1"));
-			rhm.put("num2", rs.getString("num2"));
-			rhm.put("op", rs.getString("op"));
-			rhm.put("result", rs.getString("result"));
+			rhm.put("num", rs.getString("num"));
+			rhm.put("jttext", rs.getString("jttext"));
+
 			calList.add(rhm);
 		}
 	}catch(Exception e){

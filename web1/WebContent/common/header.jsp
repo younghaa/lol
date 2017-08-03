@@ -46,13 +46,15 @@ String nowUrl = request.getRequestURI();
 String loginStr = "로그인";
 if(login){
 	loginStr = "로그아웃";
-}
+}String version = "1.2";
 %>
-<script src="<%=rootPath%>/js/jquery-3.2.1.js"></script>
-<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="<%=rootPath%>/ui/common.css"/>
+<script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
+<script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap-table.js?version=<%=version%>"></script>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-theme.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap.min.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
+<link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
 <script>
 var rootPath = "<%=rootPath%>";
  $(document).ready(function(){
@@ -69,6 +71,8 @@ function doMovePage(pageId){
 		url += "/board/board_insert.jsp";
 	}else if(pageId=="cal"){
 		url += "/test/cal_select.jsp";
+	}else if(pageId=="jti"){
+		url += "/test/json_test_insert.jsp";
 	}
 	location.href=url;
 }
@@ -97,6 +101,7 @@ function doMovePage(pageId){
         <li role="presentation"><a href="/user/user_info.jsp">유저정보</a></li>
         <li role="presentation"><a href="/role/role_select.jsp">권한정보</a></li>
         <li role="presentation"><a href="/test/cal.jsp">계산기</a></li>
+         <li role="presentation"><a href="/test/json_test.jsp">JSON테스트</a></li>
         <li><a href="/user/logout_ok.jsp"><%=loginStr%></a></li>
            </ul>
 
