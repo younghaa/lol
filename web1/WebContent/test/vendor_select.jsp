@@ -4,24 +4,24 @@
 <%@ page import="com.test.common.DBConn"%>
 <%@ page import="com.google.gson.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*"%>
+<%@ page import="com.test.dto.Cal"%>
+
 <%
 	 Gson g = new Gson();
-	 HashMap<String,String> hm = g.fromJson(request.getReader(), HashMap.class);
-
 	Connection con = null;
 	PreparedStatement ps = null;
-	ArrayList<Map<String, String>> jsonList = new ArrayList<Map<String, String>>();
+	ArrayList<Map<String, String>> vendorList = new ArrayList<Map<String, String>>();
 	try{
 		con = DBConn.getCon();
-		String sql = "select num, jttext from json_test where 1=1";
+		String sql = "select vinum, viname from vendor_info";
 		ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
 			Map<String, String>rhm = new HashMap<String, String>();
-			rhm.put("num", rs.getString("num"));
-			rhm.put("jttext", rs.getString("jttext"));
-
-			jsonList.add(rhm);
+			rhm.put("vinum", rs.getString("vinum"));
+			rhm.put("viname", rs.getString("viname"));
+			vendorList.add(rhm);
 		}
 	}catch(Exception e){
 		System.out.println(e);
@@ -33,7 +33,7 @@
 		DBConn.closeCon();
 	}
 
-String json = g.toJson(jsonList);
+String json = g.toJson(vendorList);
 System.out.println(json);
 out.print(json);
 	%>
