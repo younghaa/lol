@@ -6,6 +6,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*"%>
 <%@ page import="com.test.dto.Cal"%>
+
 <%
 int rowCnt=10;
 int nowPage=1;
@@ -58,6 +59,8 @@ int totalCnt = 0;
 				totalBlockCnt +=1;
 			}
 		}
+		System.out.println(totalCnt);
+		System.out.println(totalPageCnt);
 		System.out.println(totalCnt);
 		sql = "select gi.ginum, gi.giname, gi.gidesc, vi.vinum, vi.viname from goods_info as gi, vendor_info as vi where gi.vinum=vi.vinum";
 		sql += " order by gi.ginum ";

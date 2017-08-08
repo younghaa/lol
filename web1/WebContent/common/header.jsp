@@ -46,7 +46,7 @@ String nowUrl = request.getRequestURI();
 String loginStr = "로그인";
 if(login){
 	loginStr = "로그아웃";
-}String version = "1.2";
+}String version = "1.3.2";
 %>
 <script src="<%=rootPath%>/js/jquery-3.2.1.js?version=<%=version%>"></script>
 <script src="<%=rootPath%>/ui/btsp3.7.7/js/bootstrap.min.js?version=<%=version%>"></script>
@@ -56,6 +56,24 @@ if(login){
 <link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
 <script>
+var sBlockStr = "<li><a>◀◀</a></li>";
+sBlockStr += "<li><a>◀</a></li>";
+var eBlockStr = "<li><a>▶</a></li>"; 
+eBlockStr += "<li><a>▶▶</a></li>";
+
+function setPagination(sNum, eNum,nPage, objId){
+	var pageStr=sBlockStr;
+	for(var i=sNum, max=eNum; i<=max; i++){
+		if(i==nPage){
+			pageStr += "<li class='active'><a>" + i + "</a></li>";
+		}else{
+			pageStr +="<li><a>" + i+ "</a></li>";
+		}
+	}
+	pageStr += eBlockStr;
+	$("#" + objId).html(pageStr);
+}
+
 var rootPath = "<%=rootPath%>";
  $(document).ready(function(){
 	var nowUrl = "<%=nowUrl%>";
@@ -74,22 +92,32 @@ function doMovePage(pageId){
 	}else if(pageId=="jti"){
 		url += "/test/json_test_insert.jsp";
 	}
-	location.href=url;
+	location.href=url;	
 }
+ function alertOp(){
+		alert($("#op").val());
+	}
+ function goPage(pParams, pUrl, pCallBackFunc){
+		var params = JSON.stringify(pParams);
+		$.ajax({ 
+	    		type     : "POST"
+		    ,   url		   : pUrl
+		    ,   dataType : "json" 
+		    ,   beforeSend: function(xhr) {
+		        xhr.setRequestHeader("Accept", "application/json");
+		        xhr.setRequestHeader("Content-Type", "application/json");
+		        
+		    }
+		    ,   data     : params
+		    ,   success : pCallBackFunc
+		    ,   error : function(xhr, status, e) {
+			    	alert("에러 : "+e);
+			},
+			complete  : function() {
+			}
+		});
+	}
 
- /* $(function(){
-	  var current_page_URL = location.href;
-	  $( "a" ).each(function() {
-	     if ($(this).attr("href") !== "#") {
-	       var target_URL = $(this).prop("href");
-	       if (target_URL == current_page_URL) {
-	          $('nav li').parents('li, ul').removeClass('active');
-	          $(this).parent('li').addClass('active');
-	          return false;
-	       }
-	     }
-	  });
-	});  */
 </script>
 
 <div class="navbar navbar-defaul navbar-fixed-top">

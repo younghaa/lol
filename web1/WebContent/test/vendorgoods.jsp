@@ -26,87 +26,69 @@
 <input type="button" id="getVendorGoods" value="리스트호출"/>
 <div id="result_div" class="container"></div>
 <script>
-$(document).ready(function(){
-	var params = {};
-	params["nowPage"] = "101";
-	params = JSON.stringify(params);
-	var a = { 
-	        type     : "POST"
-	    	    ,   url      : "/test/vendor_select.jsp"
-	    	    ,   dataType : "json" 
-	    	    ,   beforeSend: function(xhr) {
-	    	        xhr.setRequestHeader("Accept", "application/json");
-	    	        xhr.setRequestHeader("Content-Type", "application/json");
-	    	    }
-	    	    ,   data     : params
-	    	    ,   success : function(results){
+var thisBlockCnt=0;
+var thisNowPage=0;
+var thisTotalPage=0;
+function callback(results){
 	    	    	var vendorList = results.vendorList;
 	    	    	var goodsList = results.goodsList;
 	    	    	var pageInfo = results.pageInfo;
 	    	    	
-	    	    	var pageStr="<li><a>◀◀</a></li>";
-	    	    	pageStr+="<li><a>◀</a></li>";
 	    	    	var blockCnt = new Number(pageInfo.blockCnt);
+	    	    	thisBlockCnt = blockCnt;
 	    	    	var nowPage = new Number(pageInfo.nowPage);
+	    	    	thisNowPage = nowPage;
 	    	    	var startBlock = Math.floor((nowPage-1)/blockCnt)*10+1;
 	    	    	var endBlock = startBlock+blockCnt-1;
 	    	    	var totalPageCnt = new Number(pageInfo.totalPageCnt);
+	    	    	thisTotalPage = totalPageCnt;
 	    	    	if(endBlock>totalPageCnt){
 	    	    		endBlock=totalPageCnt;
 	    	    	}
-	    	    	for(var i=startBlock , max=endBlock; i<=max; i++){
-	    	    		if(i==pageInfo.nowPage){
-	    	    			pageStr += "<li class='active'><a>" + i + "</a></li>";
-	    	    		}else{
-	    	    			pageStr += "<li><a>"+ i +"</a></li>";
-	    	    		}
-	    	    	}
-	    	    	pageStr+="<li><a>▶</a></li>";
-	    	    	pageStr+="<li><a>▶▶</a></li>";
 	    	    	
-	    	    	$("#page").html(pageStr);
+	    	    	setPagination(startBlock, endBlock, pageInfo.nowPage,"page");
+	    	    	
 	    	    	for(var i=0, max = vendorList.length; i<max;i++){
-		    	    	var result=vendorList[i];
 		    	        	$("#s_vendor").append("<option value='"+ vendorList[i].vinum+"'>"+vendorList[i].viname+"</option>");
 	    	    }
+	    	    	 $('#table').bootstrapTable('destroy');
 	    	    	$('#table').bootstrapTable({
 	    	            data: goodsList
 	    	        });
+	    	    	setEvent();
 	    	    }
-	    	    ,   error : function(xhr, status, e) {
-	    		    	alert("에러 : "+e);
-	    		},
-	    		complete : function(e) {
-	    		}
-	    		};
-	$.ajax(a);
+$(document).ready(function(){
+	var params = {};
+	params["nowPage"] = "1";
+	goPage(params, "/test/vendor_select.jsp", callback);
 });
+	function setEvent(){
+		$("ul[class='pagination']>li>a").click(function(){
+			var goPageNum = new Number(this.innerHTML);
+	if(isNaN(goPageNum)){
+		if(this.innerHTML=="◀"){
+			thisNowPage -= thisBlockCnt;
+		}else if(this.innerHTML=="◀◀"){
+			thisNowPage = 1;
+		}else if(this.innerHTML=="▶"){
+			thisNowPage += thisBlockCnt;
+		}else if(this.innerHTML=="▶▶"){
+			thisNowPage = thisTotalPage;
+		}
+		if(thisNowPage<=0){
+			thisNowPage=1;
+		}else if(thisNowPage>thisTotalPage){
+			thisNowPage = thisTotalPage;
+		}
+	goPageNum = thisNowPage;
+	}
+	var params = {};
+	params["nowPage"] = "" + goPageNum;
+	goPage(params,"/test/vendor_select.jsp", callback);
+		})
+	}
 
-$("#getVendorGoods").click(function(){
-	var op = $("#op").val();
-	var param = {};
-	param["op"] = op;
-	param = JSON.stringify(param);
-	var a = { 
-	        type     : "POST"
-	    	    ,   url      : "/test/vendor_select.jsp"
-	    	    ,   dataType : "json" 
-	    	    ,   beforeSend: function(xhr) {
-	    	        xhr.setRequestHeader("Accept", "application/json");
-	    	        xhr.setRequestHeader("Content-Type", "application/json");
-	    	    }
-	    	    ,   data     : param
-	    	    ,   success : function(result){
-		    	        $('#table').bootstrapTable({
-		    	            data: result
-		    	        });
-	    	    }
-	    	    ,   error : function(xhr, status, e) {
-	    		    	alert("에러 : "+e);
-	    		},
-	    		complete : function(e) {
-	    		}
-	    		};
-	$.ajax(a);
-});
+
 </script>
+</body>
+</html>

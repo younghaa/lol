@@ -15,4 +15,8 @@ body {
   text-align: center;
     margin-left: -300px;
 }
-
+ul[class='pagination']>li>a:hover{
+	cursor:pointer;
+	background-color:#c0c0c0;
+	
+}
