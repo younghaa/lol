@@ -1,11 +1,14 @@
 package com.test.dto;
 
-public class Goods {
+import java.util.HashMap;
+import java.util.List;
+
+public class Goods{
 
 	private int giNum;
 	private String giName;
 	private String giDesc;
-	private int viNum; 
+	private int viNum;
 	private String viName;
 	private String command;
 	private Page page;
@@ -25,6 +28,7 @@ public class Goods {
 	public void setCommand(String command) {
 		this.command = command;
 	}
+
 	public int getGiNum() {
 		return giNum;
 	}
@@ -55,11 +59,9 @@ public class Goods {
 	public void setViName(String viName) {
 		this.viName = viName;
 	}
-
 	@Override
 	public String toString() {
 		return "Goods [giNum=" + giNum + ", giName=" + giName + ", giDesc=" + giDesc + ", viNum=" + viNum + ", viName="
 				+ viName + ", command=" + command + ", page=" + page + "]";
 	}
-	
 }

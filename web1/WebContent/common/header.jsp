@@ -56,21 +56,39 @@ if(login){
 <link rel="stylesheet" href="<%=rootPath%>/ui/common.css?version=<%=version%>"/>
 <link rel="stylesheet" href="<%=rootPath%>/ui/btsp3.7.7/css/bootstrap-table.css?version=<%=version%>"/>
 <script>
-var sBlockStr = "<li><a>◀◀</a></li>";
-sBlockStr += "<li><a>◀</a></li>";
-var eBlockStr = "<li><a>▶</a></li>"; 
-eBlockStr += "<li><a>▶▶</a></li>";
-
-function setPagination(sNum, eNum,nPage, objId){
-	var pageStr=sBlockStr;
-	for(var i=sNum, max=eNum; i<=max; i++){
+Number.prototype.equals = function(obj){
+	if(obj instanceof Number){
+		return this.toString()==obj.toString();
+	}
+	return this == obj;
+}
+function setPagination(pageInfo, objId){
+	var sNum = pageInfo.startBlock;
+	var eNum = pageInfo.endBlock;
+	var nPage = pageInfo.nowPage;
+	var nTotal = pageInfo.totalPageCnt;
+	var pageStr="";
+	if(nPage==1){
+		pageStr += "<li class='disabled'><a>◀◀</a></li>";
+		pageStr +="<li class='disabled'><a>◀</a></li>";
+	}else{
+		pageStr += "<li><a>◀◀</a></li>";
+		pageStr += "<li><a>◀</a></li>";
+	}
+	for(var i=sNum, max=eNum;i<=max;i++){
 		if(i==nPage){
 			pageStr += "<li class='active'><a>" + i + "</a></li>";
 		}else{
-			pageStr +="<li><a>" + i+ "</a></li>";
+			pageStr += "<li><a>" + i + "</a></li>";
 		}
 	}
-	pageStr += eBlockStr;
+	if(nPage.equals(nTotal)){
+		pageStr +="<li class='disabled'><a>▶</a></li>";
+		pageStr += "<li class='disabled'><a>▶▶</a></li>";
+	}else{
+		pageStr += "<li><a>▶</a></li>";
+		pageStr += "<li><a>▶▶</a></li>";
+	}
 	$("#" + objId).html(pageStr);
 }
 
@@ -128,7 +146,6 @@ function doMovePage(pageId){
         <li role="presentation"><a href="/board/board_select.jsp" >게시판</a></li>
         <li role="presentation"><a href="/user/user_info.jsp">유저정보</a></li>
         <li role="presentation"><a href="/role/role_select.jsp">권한정보</a></li>
-        <li role="presentation"><a href="/test/cal.jsp">계산기</a></li>
          <li role="presentation"><a href="/test/json_test.jsp">JSON테스트</a></li>
         <li><a href="/user/logout_ok.jsp"><%=loginStr%></a></li>
            </ul>
