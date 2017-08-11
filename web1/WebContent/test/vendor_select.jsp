@@ -129,7 +129,7 @@ out.print(json);
 </select>
 <input type="button" id="getVendorGoods" value="리스트호출"/>
 <div id="result_div" class="container"></div>
-<script>
+<!-- <script>
 var thisBlockCnt=0;
 var thisNowPage=0;
 var thisTotalPage=0;
@@ -150,7 +150,7 @@ function callback(results){
 	    	    		endBlock=totalPageCnt;
 	    	    	}
 	    	    	
-	    	    	setPagination(startBlock, endBlock, pageInfo.nowPage,"page");
+	    	    	makePagination(startBlock, endBlock, pageInfo.nowPage,"page");
 	    	    	
 	    	    	for(var i=0, max = vendorList.length; i<max;i++){
 		    	        	$("#s_vendor").append("<option value='"+ vendorList[i].vinum+"'>"+vendorList[i].viname+"</option>");
@@ -164,7 +164,7 @@ function callback(results){
 $(document).ready(function(){
 	var params = {};
 	params["nowPage"] = "1";
-	goPage(params, "/test/vendor_select.jsp", callback);
+	movePageWithAjax(params, "/test/vendor_select.jsp", callback);
 });
 	function setEvent(){
 		$("ul[class='pagination']>li>a").click(function(){
@@ -188,9 +188,9 @@ $(document).ready(function(){
 	}
 	var params = {};
 	params["nowPage"] = "" + goPageNum;
-	goPage(params,"/test/vendor_select.jsp", callback);
+	movePageWithAjax(params,"/test/vendor_select.jsp", callback);
 		})
 	}
 </script>
 </body>
-</html>
+</html> -->
