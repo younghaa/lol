@@ -90,7 +90,7 @@ function doMovePage(pageId){
         <li role="presentation"><a href="/board/board_select.jsp" >게시판</a></li>
         <li role="presentation"><a href="/user/user_info.jsp">유저정보</a></li>
         <li role="presentation"><a href="/role/role_select.jsp">권한정보</a></li>
-         <li role="presentation"><a href="/test/json_test.jsp">JSON테스트</a></li>
+         <li role="presentation"><a href="/goods/goods_list.jsp">제품관리</a></li>
         <li><a href="/user/logout_ok.jsp"><%=loginStr%></a></li>
            </ul>
 
