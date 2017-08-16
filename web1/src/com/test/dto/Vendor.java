@@ -1,5 +1,9 @@
 package com.test.dto;
 
+import java.util.HashMap;
+import java.util.List;
+
+
 public class Vendor {
 
 	private int viNum;
@@ -9,6 +13,21 @@ public class Vendor {
 	private String viPhone;
 	private String viCredat;
 	private String viCretim;
+	private Page page;
+	private String command;
+	
+	public String getCommand() {
+		return command;
+	}
+	public void setCommand(String command) {
+		this.command = command;
+	}
+	public Page getPage() {
+		return page;
+	}
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public int getViNum() {
 		return viNum;
 	}
@@ -51,5 +70,12 @@ public class Vendor {
 	public void setViCretim(String viCretim) {
 		this.viCretim = viCretim;
 	}
+	@Override
+	public String toString() {
+		return "Vendor [viNum=" + viNum + ", viName=" + viName + ", viDesc=" + viDesc + ", viAddress=" + viAddress
+				+ ", viPhone=" + viPhone + ", viCredat=" + viCredat + ", viCretim=" + viCretim + ", page=" + page
+				+ ", command=" + command + "]";
+	}
+	
 	
 }

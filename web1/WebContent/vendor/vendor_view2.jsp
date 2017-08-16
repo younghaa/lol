@@ -1,9 +1,6 @@
 <%@ include file="/common/header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="com.test.common.DBConn"%>
-<%@ page import="com.test.dto.UserInfo"%>
 	<div class="container-view"> 
 		<table id="table"  data-height="460"	class="table table-bordered table-hover">
 		<thead>
@@ -12,22 +9,22 @@
 			</tr>
 			<tr>
 				<td class="col-md-2">상품번호</td>
-				<td class="col-md-4" colspan="2"><%=request.getParameter("giNum") %></td>
+				<td class="col-md-4" colspan="2">${vendor.vinum}</td>
 			<tr>
 				<td>상품이름</td>
-				<td colspan="2"><%=request.getParameter("giName") %></td>
+				<td colspan="2">${vendor.viName}</td>
 			</tr>
 			<tr>
 				<td>상품설명</td>
-				<td colspan="2"><%=request.getParameter("giDesc") %></td>
+				<td colspan="2">${vendor.viDesc}</td>
 			</tr>
 			<tr>
 				<td>생산자번호</td>
-				<td colspan="2"><%=request.getParameter("viNum") %></td>
+				<td colspan="2">${vendor.viAddress}</td>
 			</tr>
 			<tr>
 				<td>생산자이름</td>
-				<td colspan="2"><%=request.getParameter("viName") %></td>
+				<td colspan="2">${vendor.viPhone}</td>
 			</tr>
 			<tr>
 				<td>
@@ -48,28 +45,26 @@ $("#btnDelete").click(function(){
 	var isDelete = confirm("해당 상품을 삭제 하시겠습니까?");
 	if(isDelete){
 		var params = {};
-		params["giNum"] = "<%=request.getParameter("giNum")%>";
+		params["vinum"] = "${vendor.vinum}";
 		params["command"] = "delete";
 		var page = {};
-		page["nowPage"] = "<%=request.getParameter("nowPage")%>";
+		page["nowPage"] = "${page.nowPage}";
 		params["page"] = page;
-		movePageWithAjax(params, "/list.goods", callBackView);
+		movePageWithAjax(params, "/list.vendor", callBackView);
 	}
 });
 
 function callBackView(result){
 	alert(result.msg);
 	if(result.url!=""){	
-		alert(result.url);
-		alert(result.page.nowPage);
 		location.href = result.url + "?nowPage=" + result.page.nowPage;
 	}
 }
 $("#btnUpdate").click(function(){
-	location.href="/goods/goods_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&giNum=" + <%=request.getParameter("giNum")%>
+	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&vinum=" + <%=request.getParameter("vinum")%>
 });
 $("#btnGoList").click(function(){
-	location.href="/goods/goods_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
+	location.href="/vendor/vendor_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>
 });
 </script>
 </body>

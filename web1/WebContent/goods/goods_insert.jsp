@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<button id="btnUpdate" class="btn btn-primary" 	type="button">상품수정</button>
+					<button id="btnInsert" class="btn btn-primary" 	type="button">상품등록</button>
 					<button id="goList" class="btn" 	type="button">취소</button>
 				</td>
 			</tr>
@@ -30,13 +30,12 @@
 	<!-- /container -->
 
 <script>
-	$("#btnUpdate").click(function(){
+	$("#btnInsert").click(function(){
 		var params = {};
-		params["command"] = "update";
+		params["command"] = "insert";
 		params["giDesc"] = $("#giDesc").val();
 		params["giName"] = $("#giName").val();
 		params["viNum"] = $("#s_vendor").val();
-		params["giNum"] = "<%=request.getParameter("giNum")%>";
 		movePageWithAjax(params, "/list.goods", callbackInsert);
 	})
 	
@@ -59,19 +58,6 @@
 					+ "</option>";
 		}
 		$("#s_vendor").html(selStr);
-
-		var params = {};
-		params["command"] = "view";
-		params["giNum"] = "<%=request.getParameter("giNum")%>";
-		var page = {}
-		page["nowPage"] = "<%=request.getParameter("nowPage")%>";
-		params["page"] = page;
-		movePageWithAjax(params, "/list.goods", callback2);
-	}
-	function callback2(result){
-		$("#giDesc").val(result.goods.giDesc);
-		$("#giName").val(result.goods.giName);
-		$("#s_vendor").val(result.goods.viNum);
 	}
 </script>
 </body>

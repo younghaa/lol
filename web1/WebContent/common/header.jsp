@@ -91,6 +91,7 @@ function doMovePage(pageId){
         <li role="presentation"><a href="/user/user_info.jsp">유저정보</a></li>
         <li role="presentation"><a href="/role/role_select.jsp">권한정보</a></li>
          <li role="presentation"><a href="/goods/goods_list.jsp">제품관리</a></li>
+         <li role="presentation"><a href="/vendor/vendor_list.jsp">업체관리</a></li>
         <li><a href="/user/logout_ok.jsp"><%=loginStr%></a></li>
            </ul>
 
