@@ -90,6 +90,7 @@ public class GoodsServlet extends HttpServlet{
 	    	resultMap.put("vendorList", vendorList);
 	    	String jsonStr = g.toJson(resultMap);
 	    	doProcess(response, jsonStr);
+	    	
 	    }else if(command.equals("insert")){
 	    	int result = gs.insertGoods(goods);
 	    	HashMap resultMap = new HashMap();
@@ -101,6 +102,7 @@ public class GoodsServlet extends HttpServlet{
 	    	}
 	    	String jsonStr = g.toJson(resultMap);
 	    	doProcess(response, jsonStr);
+	    	
 	    }else if(command.equals("update")){
 	    	int result = gs.updateGoods(goods);
 	    	HashMap resultMap = new HashMap();
