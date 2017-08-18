@@ -15,6 +15,7 @@ public class Vendor {
 	private String viCretim;
 	private Page page;
 	private String command;
+	private String selectVendor;
 	
 	public String getCommand() {
 		return command;

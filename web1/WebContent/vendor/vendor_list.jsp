@@ -28,86 +28,65 @@
 </div>
 <script>
 
-	$("#btnInsert").click(function(){
-		location.href="/vendor/vendor_insert.jsp";
-	})
-	$("#searchVendor").click(function() {
-		var viName = $("#viName").val().trim();
-		if(viName==""){
-			alert("업체명을 입력해주세요.");
-			return;
-		}
-		var params = "command=list&viName=" + viName;
-		$.ajax({ 
-	    		type     : "POST"
-		    ,   url      : "/list.vendor"
-		    ,   dataType : "json" 
-		    ,   data     : params
-		    ,   success : function(result){
-				$('#table').bootstrapTable('destroy');
-				var resultStr = "";
-				for(var i=0, max=result.length;i<max;i++){
-					var vendor = result[i];
-					resultStr += "<tr data-view='" + vendor.viNum + "'>";
-					resultStr +="<td class='text-center'>" + vendor.viNum + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viName + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viDesc + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viAddress + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viPhone + "</td>";
-					resultStr +="</tr>";
-				}
-				$('#result_tbody').html(resultStr);
-		    }
-		    ,   error : function(xhr, status, e) {
-			    	alert("에러 : "+e);
-			},
-			complete  : function() {
-			}
-		});
-	});
-	
-	function callback(results) {
+$("#btnInsert").click(function(){
+	location.href="/goods/goods_insert.jsp";
+})
+$("#searchVendor").click(function() {
+	var viName = $("#viName").val().trim();
+	if(viName==""){
+		alert("회사명을 입력해주세요.");
+		return;
 	}
-	
-	$(document).ready(function() {
-		var params = "command=list";
-		$.ajax({ 
-	    		type     : "POST"
-		    ,   url      : "/list.vendor"
-		    ,   dataType : "json" 
-		    ,   data     : params
-		    ,   success : function(result){
-				$('#table').bootstrapTable('destroy');
-				var resultStr = "";
-				for(var i=0, max=result.length;i<max;i++){
-					var vendor = result[i];
-					resultStr += "<tr data-view='" + vendor.viNum + "'>";
-					resultStr +="<td class='text-center'>" + vendor.viNum + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viName + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viDesc + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viAddress + "</td>";
-					resultStr +="<td class='text-center'>" + vendor.viPhone + "</td>";
-					resultStr +="</tr>";
-				}
-				$('#result_tbody').html(resultStr);
-				$("tbody[id='result_tbody']>tr[data-view]").click(function(){
-					var params = {};
-					params["viNum"] = this.getAttribute("data-view");
-					params["command"] = "view";
-					var page = {};
-					page["nowPage"] = pageInfo.nowPage;
-					params["page"] = page;
-					movePageWithAjax(params, "/list.vendor", callBackView);
-				});
-			}
-		     
-		    ,   error : function(xhr, status, e) {
-			    	alert("에러 : "+e);
-			},
-			complete  : function() {
-			}
-		});
+	var params = "command=update&viName=" + viName;
+	$.ajax({ 
+    		type     : "POST"
+	    ,   url      : "/list.vendor"
+	    ,   dataType : "xml" 
+	    
+	    ,   data     : params
+	    ,   success : function(result){
+	    	alert(result);
+	    }
+	    ,   error : function(xhr, status, e) {
+		    	alert("에러 : "+e);
+		},
+		complete  : function() {
+		}
 	});
+});
+
+function callback(results) {
+}
+
+$(document).ready(function() {
+	var params = "command=list";
+	$.ajax({ 
+    		type     : "POST"
+	    ,   url      : "/list.vendor"
+	    ,   dataType : "json" 
+	    ,   data     : params
+	    ,   success : function(result){
+			$('#table').bootstrapTable('destroy');
+			var resultStr = "";
+ 			for(var i=0, max=result.length;i<max;i++){
+				var vendor = result[i];
+				resultStr += "<tr data-view='" + vendor.viNum + "'>";
+				resultStr +="<td class='text-center'>" + vendor.viNum + "</td>";
+				resultStr +="<td class='text-center'>" + vendor.viName + "</td>";
+				resultStr +="<td class='text-center'>" + vendor.viDesc + "</td>";
+				resultStr +="<td class='text-center'>" + vendor.viAddress + "</td>";
+				resultStr +="<td class='text-center'>" + vendor.viPhone + "</td>";
+				resultStr +="</tr>";
+			} 
+			$('#result_tbody').html(resultStr);
+	    }
+		    ,   error : function(xhr, status, e) {
+		    	alert("에러 : "+e);
+		},
+		complete  : function() {
+		}
+	});
+});
 </script>
 </body>
 </html>

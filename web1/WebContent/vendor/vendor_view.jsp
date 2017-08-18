@@ -45,7 +45,7 @@
 	<!-- /container -->
 <script>
 $("#btnDelete").click(function(){
-	var isDelete = confirm("해당 업체정보를 삭제 하시겠습니까?");
+	var isDelete = confirm("해당 상품을 삭제 하시겠습니까?");
 	if(isDelete){
 		var params = {};
 		params["viNum"] = "<%=request.getParameter("viNum")%>";
@@ -66,7 +66,7 @@ function callBackView(result){
 	}
 }
 $("#btnUpdate").click(function(){
-	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&viNum=" + <%=request.getParameter("viNum")%>
+	location.href="/vendor/vendor_update.jsp?nowPage=" + <%=request.getParameter("nowPage")%> + "&giNum=" + <%=request.getParameter("giNum")%>
 });
 $("#btnGoList").click(function(){
 	location.href="/vendor/vendor_list.jsp?nowPage=" + <%=request.getParameter("nowPage")%>

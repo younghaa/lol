@@ -64,6 +64,7 @@ public class GoodsServlet extends HttpServlet{
 	    	resultMap.put("vendorList", vendorList);
 	    	String jsonStr = g.toJson(resultMap);
 	    	doProcess(response, jsonStr);
+	    	
 	    }else if(command.equals("view")){
 	    	Goods resultGoods = gs.selectGoods(goods);
 	    	HashMap resultMap = new HashMap();
@@ -72,6 +73,7 @@ public class GoodsServlet extends HttpServlet{
 	    	resultMap.put("url", "/goods/goods_view.jsp");
 	    	String jsonStr = g.toJson(resultMap);
 	    	doProcess(response, jsonStr);
+	    	
 	    }else if(command.equals("delete")){
 	    	int result = gs.deleteGoods(goods);
 	    	HashMap resultMap = new HashMap();
@@ -84,6 +86,7 @@ public class GoodsServlet extends HttpServlet{
 	    	}
 	    	String jsonStr = g.toJson(resultMap);
 	    	doProcess(response, jsonStr);
+	    	
 	    }else if(command.equals("vendorlist")){
 	    	List<Vendor> vendorList = gs.selectVendorsList();
 	    	HashMap resultMap = new HashMap();

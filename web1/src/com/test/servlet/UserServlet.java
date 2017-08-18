@@ -109,7 +109,7 @@ public class UserServlet extends HttpServlet {
 
 	}
 
-	public void dePost(HttpServletRequest req, HttpServletResponse reqs) throws IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse reqs) throws IOException {
 		System.out.println("1");
 	}
 

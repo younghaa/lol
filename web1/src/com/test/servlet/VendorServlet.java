@@ -1,8 +1,12 @@
 package com.test.servlet;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.test.dto.Goods;
-import com.test.dto.Page;
 import com.test.dto.Vendor;
 import com.test.service.VendorService;
 
@@ -30,41 +32,51 @@ public class VendorServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		request.setCharacterEncoding("UTF-8");
 
-		
-		String command = request.getParameter("command");
-	    String result="";
+	    String command = request.getParameter("command");
+	    String jsonStr = "";
 	    if(command.equals("list")){
 	    	String viName = request.getParameter("viName");
 	    	List<Vendor> vendorList = vs.selectVendorsList(viName);
-	    	result=g.toJson(vendorList);
-/*	    	for(Vendor v : vendorList){
-	    		result += "<tr>";
-	    		result += "<td>" + v.getViNum() + "</td>";
-	    		result += "<td>" + v.getViName() + "</td>";
-	    		result += "<td>" + v.getViDesc() + "</td>";
-	    		result += "<td>" + v.getViAddress() + "</td>";
-	    		result += "<td>" + v.getViPhone() + "</td>";
-	    		result += "</tr>";
-	    	}*/
+	    	jsonStr = g.toJson(vendorList);
+	    	System.out.println(jsonStr);
+//	    	for(Vendor v : vendorList){
+//	    		result += "<tr>";
+//	    		result += "<td>" + v.getViNum() + "</td>";
+//	    		result += "<td>" + v.getViName() + "</td>";
+//	    		result += "<td>" + v.getViDesc() + "</td>";
+//	    		result += "<td>" + v.getViAddress() + "</td>";
+//	    		result += "<td>" + v.getViPhone() + "</td>";
+//	    		result += "</tr>";
+//	    	}
 	    }else if(command.equals("view")){
-	    	
+	    	String pVendor = request.getParameter("pVender");
+	    	List<Vendor> vendorList = vs.selectVendor(pVendor);
+	    	jsonStr=g.toJson(vendorList);
 	    }else if(command.equals("delete")){
-	    	
 	    }else if(command.equals("insert")){
-	    	String Vendor = request.getParameter("vendor");
-	    	List<Vendor> insertVendor = vs.insertVendor(Vendor);
-	    	
-	    	result=g.toJson(insertVendor);
-	    	
-	    }else if(command.equals("update")){
+	    }else if(command.equals("xml")){
+	        response.setContentType("text/xml");
+	        
+	        URLConnection conn;
+	        BufferedReader br;
+	         
+	        conn = new URL("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%3D%22USDKRW%22&format=xml&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys").openConnection();
+	         
+	        br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+	        String line = null;
+	        while( (line=br.readLine())!=null ){
+	        	jsonStr += line;
+	        }
+	        System.out.println(jsonStr);
 	    }
-	    doProcess(response, result);
+	    doProcess(response, jsonStr);
 	}
-	
 	
 	public void doProcess(HttpServletResponse response, String writeStr) throws IOException {
 		response.setContentType("text/html; charset = UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(writeStr);
+		out.close();
 	}
 }
