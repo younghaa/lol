@@ -49,9 +49,6 @@ public class VendorServlet extends HttpServlet{
 //	    		result += "</tr>";
 //	    	}
 	    }else if(command.equals("view")){
-	    	String pVendor = request.getParameter("pVender");
-	    	List<Vendor> vendorList = vs.selectVendor(pVendor);
-	    	jsonStr=g.toJson(vendorList);
 	    }else if(command.equals("delete")){
 	    }else if(command.equals("insert")){
 	    }else if(command.equals("xml")){
